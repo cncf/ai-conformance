@@ -29,6 +29,19 @@ Also, note that any submission made to this repo will need to first pass a numbe
 
 ## Helpful Resources
 
+### [WG AI Conformance Kubernetes](https://github.com/kubernetes/community/tree/master/wg-ai-conformance)]
+
+The responsible body for the Content of the AI Conformance. The goal of this group is to define a standardized set of capabilities, APIs, and configurations that a Kubernetes cluster must offer to reliably and efficiently run AI/ML workloads.
+
+### [Kubernetes Conformance](https://github.com/cncf/k8s-conformance)
+
+Your Platform must be Kubernetes Conformant before achieving Kubernetes AI Conformance. Find more Information about Kubernetes Conformance here.
+
+Reviewing, approving, and driving changes to the conformance test suite; reviewing, guiding, and creating new conformance profiles.
+
+- [Conformance Tests](https://github.com/kubernetes/kubernetes/blob/master/test/conformance/testdata/conformance.yaml)
+- [Conformance Testing in Kubernetes](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/conformance-tests.md)
+
 ### [Verify conformance bot](#) (Coming Soon!)
 
 This automation provides timely feedback and reduces the time required by the CNCF to confirm that the PR meets all policy requirements. This will be based on the [Kubernetes Conformance Bot](https://github.com/kubernetes-sigs/verify-conformance)

@@ -3,12 +3,16 @@
 # Participants should fill in the 'status', 'evidence', and 'notes' fields for each requirement.
 
 metadata:
-  conformanceVersion: 1.34
-  kubernetesVersion: 1.34
+  kubernetesVersion: v1.34
   platformName: "[Platform Name]"
   platformVersion: "[Platform Version]"
   vendorName: "[Vendor Name]"
-  submissionDate: "[YYYY-MM-DD]"
+  websiteUrl: "[Website URL]"
+  repoUrl: "[Repository URL]"
+  documentationUrl: "[Documentation URL]"
+  productLogoUrl: "[Documentation URL]"
+  description: "[Description]"
+  contactEmailAddress: "[Contact Email Address]"
 
 spec:
   accelerators:
