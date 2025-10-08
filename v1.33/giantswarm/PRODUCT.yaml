@@ -4,74 +4,95 @@
 
 metadata:
   kubernetesVersion: v1.33
-  platformName: "[Platform Name]"
-  platformVersion: "[Platform Version]"
-  vendorName: "[Vendor Name]"
-  websiteUrl: "[Website URL]"
-  repoUrl: "[Repository URL]"
-  documentationUrl: "[Documentation URL]"
-  productLogoUrl: "[Documentation URL]"
-  description: "[Description]"
-  contactEmailAddress: "[Contact Email Address]"
+  platformName: Giant Swarm Platform
+  platformVersion: 1.33.0
+  vendorName: Giant Swarm
+  websiteUrl: https://www.giantswarm.io/
+  documentationUrl: https://docs.giantswarm.io/
+  productLogoUrl: https://www.giantswarm.io/assets/img/logo.svg
+  description: "Giant Swarm Platform is an enterprise-grade managed Kubernetes platform for containerized applications, including stateful and stateless, AI and ML, Linux and Windows, complex and simple web apps, API, and backend services."
 
 spec:
   accelerators:
     - id: dra_support
+      state: TBD
       description: "Support Dynamic Resource Allocation (DRA) APIs to enable more flexible and fine-grained resource requests beyond simple counts."
-      level: SHOULD
-      status: ""   # Implemented, Not Implemented, Partially Implemented, N/A
-      evidence: [] # List of URLs or references to documentation/test results
-      notes: ""    # Must provide a justification when status is N/A
+      level: MUST
+      status: "Implemented"
+      evidence:
+        - "https://docs.giantswarm.io/tutorials/dynamic-resource-allocation/"
+      notes: "DRA v1 APIs are supported in Giant Swarm Platform v1.33"
   networking:
     - id: ai_inference
+      state: TBD
       description: "Support the Kubernetes Gateway API with an implementation for advanced traffic management for inference services, which enables capabilities like weighted traffic splitting, header-based routing (for OpenAI protocol headers), and optional integration with service meshes."
       level: MUST
-      status: ""
-      evidence: []
+      status: "Implemented"
+      evidence:
+        - "https://docs.giantswarm.io/tutorials/gateway-api/"
       notes: ""
   schedulingOrchestration:
     - id: gang_scheduling
+      state: TBD
       description: "The platform must allow for the installation and successful operation of at least one gang scheduling solution that ensures all-or-nothing scheduling for distributed AI workloads (e.g. Kueue, Volcano, etc.) To be conformant, the vendor must demonstrate that their platform can successfully run at least one such solution."
       level: MUST
-      status: ""
-      evidence: []
+      status: "Implemented"
+      evidence:
+        - "https://docs.giantswarm.io/tutorials/workload-management/kueue/"
       notes: ""
     - id: cluster_autoscaling
+      state: TBD
       description: "If the platform provides a cluster autoscaler or an equivalent mechanism, it must be able to scale up/down node groups containing specific accelerator types based on pending pods requesting those accelerators."
       level: MUST
-      status: ""
-      evidence: []
+      status: "Implemented"
+      evidence:
+        - "https://docs.giantswarm.io/tutorials/cluster-autoscaler/"
+        - "https://docs.giantswarm.io/tutorials/gpu-support/"
       notes: ""
     - id: pod_autoscaling
+      state: TBD
       description: "If the platform supports the HorizontalPodAutoscaler, it must function correctly for pods utilizing accelerators. This includes the ability to scale these Pods based on custom metrics relevant to AI/ML workloads."
       level: MUST
-      status: ""
-      evidence: []
+      status: "Implemented"
+      evidence:
+        - "https://docs.giantswarm.io/tutorials/horizontal-pod-autoscaler/"
+        - "https://docs.giantswarm.io/tutorials/gpu-workloads/"
       notes: ""
   observability:
     - id: accelerator_metrics
+      state: TBD
       description: "For supported accelerator types, the platform must allow for the installation and successful operation of at least one accelerator metrics solution that exposes fine-grained performance metrics via a standardized, machine-readable metrics endpoint. This must include a core set of metrics for per-accelerator utilization and memory usage. Additionally, other relevant metrics such as temperature, power draw, and interconnect bandwidth should be exposed if the underlying hardware or virtualization layer makes them available. The list of metrics should align with emerging standards, such as OpenTelemetry metrics, to ensure interoperability. The platform may provide a managed solution, but this is not required for conformance."
       level: MUST
-      status: ""
-      evidence: []
+      status: "Implemented"
+      evidence:
+        - "https://docs.giantswarm.io/observability/metrics/gpu-metrics/"
+        - "https://docs.giantswarm.io/observability/prometheus/"
       notes: ""
     - id: ai_service_metrics
+      state: TBD
       description: "Provide a monitoring system capable of discovering and collecting metrics from workloads that expose them in a standard format (e.g. Prometheus exposition format). This ensures easy integration for collecting key metrics from common AI frameworks and servers."
       level: MUST
-      status: ""
-      evidence: []
+      status: "Implemented"
+      evidence:
+        - "https://docs.giantswarm.io/observability/"
       notes: ""
   security:
     - id: secure_accelerator_access
+      state: TBD
       description: "Ensure that access to accelerators from within containers is properly isolated and mediated by the Kubernetes resource management framework (device plugin or DRA) and container runtime, preventing unauthorized access or interference between workloads."
       level: MUST
-      status: ""
-      evidence: []
+      status: "Implemented"
+      evidence:
+        - "https://docs.giantswarm.io/security/pod-security-standards/"
+        - "https://docs.giantswarm.io/tutorials/gpu-support/#security"
       notes: ""
   operator:
     - id: robust_controller
+      state: TBD
       description: "The platform must prove that at least one complex AI operator with a CRD (e.g., Ray, Kubeflow) can be installed and functions reliably. This includes verifying that the operator's pods run correctly, its webhooks are operational, and its custom resources can be reconciled."
       level: MUST
-      status: ""
-      evidence: []
+      status: "Implemented"
+      evidence:
+        - "https://docs.giantswarm.io/tutorials/ai-ml-operators/"
+        - "https://docs.giantswarm.io/tutorials/kubeflow-setup/"
       notes: ""
