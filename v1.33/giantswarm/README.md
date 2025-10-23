@@ -14,6 +14,7 @@ After successful login, select [Create a  cluster]()  with the [specific values]
 The following components should be installed to complete the AI setup:
 
 ## 1. NVIDIA GPU Operator
+
 **Purpose**: Manages NVIDIA GPU resources in Kubernetes clusters.
 
 **Installation via Giant Swarm App Platform**:
@@ -28,6 +29,7 @@ kubectl gs template app \
 ```
 
 ## 2. NVIDIA DRA Driver GPU
+
 **Purpose**: Provides Dynamic Resource Allocation (DRA) support for NVIDIA GPUs.
 
 **Installation via Flux HelmRelease**:
@@ -74,6 +76,7 @@ EOF
 ```
 
 ## 3. Kuberay Operator
+
 **Purpose**: Manages Ray clusters for distributed AI/ML workloads.
 
 **Installation via Giant Swarm App Platform**:
@@ -88,6 +91,7 @@ kubectl gs template app \
 ```
 
 ## 4. Kueue
+
 **Purpose**: Provides job queueing and resource management for batch workloads.
 
 **Installation via Flux HelmRelease**:
@@ -131,6 +135,7 @@ EOF
 ```
 
 ## 5. Gateway API CRDs
+
 **Purpose**: Provides advanced traffic management capabilities for inference services.
 
 **Installation via Giant Swarm App Platform**:
@@ -145,6 +150,7 @@ kubectl gs template app \
 ```
 
 ## 6. AWS EFS CSI Driver
+
 **Purpose**: Enables persistent storage using AWS Elastic File System for shared AI model storage.
 
 **Installation via Giant Swarm App Platform**:
@@ -159,6 +165,7 @@ kubectl gs template app \
 ```
 
 ## 7. JobSet
+
 **Purpose**: Manages sets of Jobs for distributed training workloads.
 
 **Installation via Flux HelmRelease**:
@@ -184,6 +191,7 @@ EOF
 ```
 
 ## 8. Kube Prometheus Stack
+
 **Purpose**: Provides comprehensive monitoring and alerting for Kubernetes clusters.
 
 **Installation via Giant Swarm App Platform**:
@@ -198,6 +206,7 @@ kubectl gs template app \
 ```
 
 ## 9. Prometheus Adapter
+
 **Purpose**: Enables custom metrics for Horizontal Pod Autoscaler, including AI/ML specific metrics.
 
 **Installation via Flux HelmRelease**:
@@ -237,9 +246,11 @@ EOF
 ```
 
 ## 10. Sonobuoy Configuration
+
 **Purpose**: Applies PolicyExceptions and configurations needed for AI conformance testing.
 
 **Installation**: Applied directly to the workload cluster using the kubeconfig:
+
 ```sh
 # Download and apply the configuration
 kubectl --kubeconfig=/path/to/workload-cluster-kubeconfig apply -f https://gist.githubusercontent.com/pipo02mix/80415c1182a5920af46a85c7adf90a8a/raw/d75d7593194fb2a3beba0549f946cb6f8a5a5f46/sonobuoy-rews.yaml
@@ -255,7 +266,6 @@ Start the conformance tests:
 
 ```sh
 sonobuoy run --plugin https://raw.githubusercontent.com/pipo02mix/ai-conformance/c0f5f45e131445e1cf833276ca66e251b1b200e9/sonobuoy-plugin.yaml
-
 ````
 
 Monitor the conformance tests by tracking the sonobuoy logs, and wait for the line: "no-exit was specified, sonobuoy is now blocking"

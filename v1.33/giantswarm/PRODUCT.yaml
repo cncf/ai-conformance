@@ -17,11 +17,11 @@ spec:
     - id: dra_support
       state: TBD
       description: "Support Dynamic Resource Allocation (DRA) APIs to enable more flexible and fine-grained resource requests beyond simple counts."
-      level: MUST
-      status: "Implemented"
+      level: SHOULD
+      status: "N/A"
       evidence:
-        - "https://docs.giantswarm.io/tutorials/dynamic-resource-allocation/"
-      notes: "DRA v1 APIs are supported in Giant Swarm Platform v1.33"
+        - ""
+      notes: "DRA APIs are disabled in 1.33 by default"
   networking:
     - id: ai_inference
       state: TBD
@@ -29,7 +29,7 @@ spec:
       level: MUST
       status: "Implemented"
       evidence:
-        - "https://docs.giantswarm.io/tutorials/gateway-api/"
+        - "https://docs.giantswarm.io/tutorials/connectivity/gateway-api/"
       notes: ""
   schedulingOrchestration:
     - id: gang_scheduling
@@ -38,7 +38,7 @@ spec:
       level: MUST
       status: "Implemented"
       evidence:
-        - "https://docs.giantswarm.io/tutorials/workload-management/kueue/"
+        - "https://docs.giantswarm.io/tutorials/fleet-management/job-management/kueue/"
       notes: ""
     - id: cluster_autoscaling
       state: TBD
@@ -46,8 +46,8 @@ spec:
       level: MUST
       status: "Implemented"
       evidence:
-        - "https://docs.giantswarm.io/tutorials/cluster-autoscaler/"
-        - "https://docs.giantswarm.io/tutorials/gpu-support/"
+        - "https://docs.giantswarm.io/tutorials/fleet-management/cluster-management/aws-cluster-scaling/"
+        - "https://docs.giantswarm.io/tutorials/fleet-management/cluster-management/cluster-autoscaler/"
       notes: ""
     - id: pod_autoscaling
       state: TBD
@@ -55,8 +55,7 @@ spec:
       level: MUST
       status: "Implemented"
       evidence:
-        - "https://docs.giantswarm.io/tutorials/horizontal-pod-autoscaler/"
-        - "https://docs.giantswarm.io/tutorials/gpu-workloads/"
+        - "TBD"
       notes: ""
   observability:
     - id: accelerator_metrics
@@ -65,8 +64,8 @@ spec:
       level: MUST
       status: "Implemented"
       evidence:
-        - "https://docs.giantswarm.io/observability/metrics/gpu-metrics/"
-        - "https://docs.giantswarm.io/observability/prometheus/"
+        - "https://docs.giantswarm.io/tutorials/fleet-management/cluster-management/gpu/#monitoring"
+        - "https://docs.giantswarm.io/overview/observability/configuration/"
       notes: ""
     - id: ai_service_metrics
       state: TBD
@@ -74,7 +73,8 @@ spec:
       level: MUST
       status: "Implemented"
       evidence:
-        - "https://docs.giantswarm.io/observability/"
+        - "https://docs.giantswarm.io/getting-started/observe-your-clusters-and-apps/"
+        - "https://docs.giantswarm.io/overview/observability/data-management/data-ingestion/"
       notes: ""
   security:
     - id: secure_accelerator_access
@@ -83,8 +83,7 @@ spec:
       level: MUST
       status: "Implemented"
       evidence:
-        - "https://docs.giantswarm.io/security/pod-security-standards/"
-        - "https://docs.giantswarm.io/tutorials/gpu-support/#security"
+        - "secure_accelerator_access_tests.md"
       notes: ""
   operator:
     - id: robust_controller
@@ -95,4 +94,4 @@ spec:
       evidence:
         - "https://docs.giantswarm.io/tutorials/ai-ml-operators/"
         - "https://docs.giantswarm.io/tutorials/kubeflow-setup/"
-      notes: ""
+      notes: "TBD"
