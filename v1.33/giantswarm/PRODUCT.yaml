@@ -55,7 +55,7 @@ spec:
       level: MUST
       status: "Implemented"
       evidence:
-        - "TBD"
+        - "https://docs.giantswarm.io/tutorials/fleet-management/scaling-workloads/scaling-based-on-custom-metrics"
       notes: ""
   observability:
     - id: accelerator_metrics
