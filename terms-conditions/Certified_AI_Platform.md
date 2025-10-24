@@ -5,7 +5,7 @@ Last updated: May 12, 2025
 
 This document sets forth the terms and conditions that apply to the CNCF AI Platform Conformance Program and the use of the associated Certified AI Platform Marks.
 
-n this document, these terms have the following meanings:
+In this document, these terms have the following meanings:
 
 * "**Certified AI Platform Marks**": Means (1) the mark "CNCF Certified AI Platform" (or similar designation as determined by CNCF) and (2) all other logos and marks described in the AI Platform Branding Guide, as defined herein.
 
