@@ -92,6 +92,5 @@ spec:
       level: MUST
       status: "Implemented"
       evidence:
-        - "https://docs.giantswarm.io/tutorials/ai-ml-operators/"
-        - "https://docs.giantswarm.io/tutorials/kubeflow-setup/"
+        - "https://docs.giantswarm.io/tutorials/fleet-management/job-management/kuberay"
       notes: "TBD"
