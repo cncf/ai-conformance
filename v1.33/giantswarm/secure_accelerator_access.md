@@ -9,8 +9,7 @@
 **Step 1**: Prepare the test environment, including:
 
 - Creating a Kubernetes 1.33 cluster
-- Adding a GPU node pool
-- Installing the NVIDIA GPU Operator (which includes the device plugin)
+- [Adding a GPU node pool and install the NVIDIA GPU Operator](https://docs.giantswarm.io/tutorials/fleet-management/cluster-management/gpu/)
 
 **Step 2 [Accessible]**: Deploy a Pod on a node with available accelerator(s), and ensure the container within the Pod explicitly requests accelerator resources. Inside the running container, execute a command to detect the accelerator device. This command should succeed and output the model of the accelerator device currently used by the container.
 
@@ -24,12 +23,13 @@ metadata:
 spec:
   containers:
   - name: cuda-container
-    image: nvidia/cuda:12.2-runtime-ubuntu22.04
+    image: nvcr.io/nvidia/k8s/cuda-sample:vectoradd-cuda11.7.1-ubuntu20.04
     command: ["sleep", "3600"]
     resources:
       limits:
         nvidia.com/gpu: 1
   restartPolicy: Never
+  runtimeClassName: nvidia
   tolerations:
   - key: nvidia.com/gpu
     operator: Exists
@@ -39,7 +39,7 @@ EOF
 $ kubectl wait --for=condition=Ready pod/gpu-test-accessible --timeout=300s
 
 $ kubectl exec gpu-test-accessible -- nvidia-smi --query-gpu=name --format=csv,noheader
-Tesla V100-SXM2-32GB
+Tesla T4
 ```
 
 **Expected Result**: The command should successfully return the GPU model name, confirming that the container has proper access to the GPU through the device plugin framework.
@@ -57,7 +57,7 @@ metadata:
 spec:
   containers:
   - name: cuda-container
-    image: nvidia/cuda:12.2-runtime-ubuntu22.04
+    image: nvcr.io/nvidia/k8s/cuda-sample:vectoradd-cuda11.7.1-ubuntu20.04
     command: ["sleep", "3600"]
     resources:
       limits:
@@ -66,6 +66,7 @@ spec:
     - name: CUDA_VISIBLE_DEVICES
       value: "0"
   restartPolicy: Never
+  runtimeClassName: nvidia
   tolerations:
   - key: nvidia.com/gpu
     operator: Exists
@@ -82,7 +83,7 @@ metadata:
 spec:
   containers:
   - name: cuda-container
-    image: nvidia/cuda:12.2-runtime-ubuntu22.04
+    image: nvcr.io/nvidia/k8s/cuda-sample:vectoradd-cuda11.7.1-ubuntu20.04
     command: ["sleep", "3600"]
     resources:
       limits:
@@ -91,6 +92,7 @@ spec:
     - name: CUDA_VISIBLE_DEVICES
       value: "1"
   restartPolicy: Never
+  runtimeClassName: nvidia
   tolerations:
   - key: nvidia.com/gpu
     operator: Exists
@@ -102,10 +104,10 @@ $ kubectl wait --for=condition=Ready pod/gpu-test-pod2 --timeout=300s
 
 # Verify isolation - each Pod should only see its allocated GPU
 $ kubectl exec gpu-test-pod1 -- nvidia-smi -L
-GPU 0: Tesla V100-SXM2-32GB (UUID: GPU-...)
+GPU 0: Tesla T4 (UUID: GPU-dabc57c1-250b-2979-2b6a-7fd7d9574143)
 
 $ kubectl exec gpu-test-pod2 -- nvidia-smi -L
-GPU 0: Tesla V100-SXM2-32GB (UUID: GPU-...)
+GPU 0: Tesla T4 (UUID: GPU-18705848-fd64-920c-22c5-e2f1a3d5a7c1)
 
 # Verify that each Pod cannot access the other's GPU context
 $ kubectl exec gpu-test-pod1 -- nvidia-smi --query-compute-apps=pid,process_name,gpu_uuid --format=csv
@@ -127,17 +129,21 @@ metadata:
 spec:
   containers:
   - name: cuda-container
-    image: nvidia/cuda:12.2-runtime-ubuntu22.04
+    image: nvcr.io/nvidia/k8s/cuda-sample:vectoradd-cuda11.7.1-ubuntu20.04
     command: ["sleep", "3600"]
     # Note: No GPU resources requested
   restartPolicy: Never
+  tolerations:
+  - key: nvidia.com/gpu
+    operator: Exists
+    effect: NoSchedule
 EOF
 
 $ kubectl wait --for=condition=Ready pod/gpu-test-unauthorized --timeout=300s
 
 # Attempt to access GPU - this should fail
 $ kubectl exec gpu-test-unauthorized -- nvidia-smi
-NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running.
+OCI runtime exec failed: exec failed: unable to start container process: exec: "nvidia-smi": executable file not found in $PATH: unknown.
 ```
 
 **Expected Result**: The Pod without GPU resource requests should not have access to GPU devices. The nvidia-smi command should fail, demonstrating that the device plugin properly mediates access.
