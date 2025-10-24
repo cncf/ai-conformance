@@ -48,6 +48,7 @@ spec:
       evidence:
         - "https://docs.giantswarm.io/tutorials/fleet-management/cluster-management/aws-cluster-scaling/"
         - "https://docs.giantswarm.io/tutorials/fleet-management/cluster-management/cluster-autoscaler/"
+        - "https://karpenter.sh/docs/concepts/scheduling/#acceleratorsgpu-resources"
       notes: ""
     - id: pod_autoscaling
       state: TBD
