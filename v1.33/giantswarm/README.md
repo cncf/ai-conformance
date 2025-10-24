@@ -7,7 +7,60 @@ Giant Swarm Platform is a managed Kubernetes platform developed by [Giant Swarm]
 #### Create Cluster
 
 First access the [Giant Swarm Platform](https://docs.giantswarm.io/getting-started/), and login to platform API.
-After successful login, select [Create a  cluster]()  with the [specific values]().
+After successful login, select [Create a  cluster](https://docs.giantswarm.io/getting-started/provision-your-first-workload-cluster/)  with the specific DRA values.
+
+```yaml
+global:
+  connectivity:
+    availabilityZoneUsageLimit: 3
+    network: {}
+    topology: {}
+  controlPlane: {}
+  metadata:
+    name: $CLUSTER
+    $organization: fer
+    preventDeletion: false
+  nodePools:
+    nodepool0:
+      instanceType: m5.xlarge
+      maxSize: 2
+      minSize: 1
+      rootVolumeSizeGB: 8
+    nodepool1:
+      instanceType: p4d.24xlarge
+      maxSize: 2
+      minSize: 1
+      rootVolumeSizeGB: 15
+      instanceWarmup: 600
+      minHealthyPercentage: 90
+      customNodeTaints:
+      - key: "nvidia.com/gpu"
+        value: "Exists"
+        effect: "NoSchedule"
+  providerSpecific: {}
+  release:
+    version: 33.0.0
+cluster:
+  internal:
+    advancedConfiguration:
+      controlPlane:
+        apiServer:
+          featureGates:
+          - name: DynamicResourceAllocation
+            enabled: true
+        controllerManager:
+          featureGates:
+          - name: DynamicResourceAllocation
+            enabled: true
+        scheduler:
+          featureGates:
+          - name: DynamicResourceAllocation
+            enabled: true
+      kubelet:
+        featureGates:
+        - name: DynamicResourceAllocation
+          enabled: true
+```
 
 # AI platform components
 
@@ -18,14 +71,15 @@ The following components should be installed to complete the AI setup:
 **Purpose**: Manages NVIDIA GPU resources in Kubernetes clusters.
 
 **Installation via Giant Swarm App Platform**:
+
 ```sh
 kubectl gs template app \
   --catalog giantswarm \
   --name gpu-operator \
-  --cluster-name ai-tests \
+  --cluster-name $CLUSTER \
   --target-namespace kube-system \
-  --version 1.0.0 \
-  --organization fer | kubectl apply -f -
+  --version 1.0.1 \
+  --organization $ORGANIZATION | kubectl apply -f -
 ```
 
 ## 2. NVIDIA DRA Driver GPU
@@ -33,6 +87,7 @@ kubectl gs template app \
 **Purpose**: Provides Dynamic Resource Allocation (DRA) support for NVIDIA GPUs.
 
 **Installation via Flux HelmRelease**:
+
 ```sh
 # First create the NVIDIA Helm Repository
 kubectl apply -f - <<EOF
@@ -40,7 +95,7 @@ apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: nvidia
-  namespace: org-fer
+  namespace: org-$ORGANIZATION
 spec:
   interval: 1h
   url: https://helm.ngc.nvidia.com/nvidia
@@ -51,8 +106,8 @@ kubectl apply -f - <<EOF
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: ai-tests-nvidia-dra-driver-gpu
-  namespace: org-fer
+  name: $CLUSTER-nvidia-dra-driver-gpu
+  namespace: org-$ORGANIZATION
 spec:
   interval: 5m
   chart:
@@ -65,7 +120,7 @@ spec:
   targetNamespace: kube-system
   kubeConfig:
     secretRef:
-      name: ai-tests-kubeconfig
+      name: $CLUSTER-kubeconfig
       key: value
   values:
     nvidiaDriverRoot: "/"
@@ -80,14 +135,15 @@ EOF
 **Purpose**: Manages Ray clusters for distributed AI/ML workloads.
 
 **Installation via Giant Swarm App Platform**:
+
 ```sh
 kubectl gs template app \
   --catalog giantswarm \
   --name kuberay-operator \
-  --cluster-name ai-tests \
+  --cluster-name $CLUSTER \
   --target-namespace kube-system \
   --version 1.0.0 \
-  --organization fer | kubectl apply -f -
+  --organization $ORGANIZATION | kubectl apply -f -
 ```
 
 ## 4. Kueue
@@ -95,58 +151,32 @@ kubectl gs template app \
 **Purpose**: Provides job queueing and resource management for batch workloads.
 
 **Installation via Flux HelmRelease**:
+
 ```sh
 # First create the Kueue Helm Repository
-kubectl apply -f - <<EOF
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: HelmRepository
-metadata:
-  name: kueue
-  namespace: org-fer
-spec:
-  interval: 1h
-  type: oci
-  url: oci://registry.k8s.io/kueue/charts
-EOF
-
-# Then create the HelmRelease
-kubectl apply -f - <<EOF
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
-  name: ai-tests-kueue
-  namespace: org-fer
-spec:
-  interval: 5m
-  chart:
-    spec:
-      chart: kueue
-      version: "0.14.1"
-      sourceRef:
-        kind: HelmRepository
-        name: kueue
-        namespace: org-fer
-  targetNamespace: kube-system
-  kubeConfig:
-    secretRef:
-      name: ai-tests-kubeconfig
-      key: value
-EOF
+kubectl gs template app \
+  --catalog=giantswarm \
+  --cluster-name$CLUSTER\
+  --organization=ORGANIZATION \
+  --name=kueue \
+  --target-namespace=kueue-system \
+  --version=0.1.0 | kubectl apply -f -
 ```
 
-## 5. Gateway API CRDs
+## 5. Gateway API
 
 **Purpose**: Provides advanced traffic management capabilities for inference services.
 
 **Installation via Giant Swarm App Platform**:
+
 ```sh
 kubectl gs template app \
   --catalog giantswarm \
-  --name gateway-api-crds \
-  --cluster-name ai-tests \
+  --name gateway-api-bundle \
+  --cluster-name $CLUSTER \
   --target-namespace kube-system \
-  --version 1.2.1 \
-  --organization fer | kubectl apply -f -
+  --version 0.5.1 \
+  --organization $ORGANIZATION | kubectl apply -f -
 ```
 
 ## 6. AWS EFS CSI Driver
@@ -154,14 +184,15 @@ kubectl gs template app \
 **Purpose**: Enables persistent storage using AWS Elastic File System for shared AI model storage.
 
 **Installation via Giant Swarm App Platform**:
+
 ```sh
 kubectl gs template app \
   --catalog giantswarm \
   --name aws-efs-csi-driver \
-  --cluster-name ai-tests \
+  --cluster-name $CLUSTER \
   --target-namespace kube-system \
   --version 2.1.5 \
-  --organization fer | kubectl apply -f -
+  --organization $ORGANIZATION | kubectl apply -f -
 ```
 
 ## 7. JobSet
@@ -169,13 +200,14 @@ kubectl gs template app \
 **Purpose**: Manages sets of Jobs for distributed training workloads.
 
 **Installation via Flux HelmRelease**:
+
 ```sh
 kubectl apply -f - <<EOF
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: ai-tests-jobset
-  namespace: org-fer
+  name: $CLUSTER-jobset
+  namespace: org-$ORGANIZATION
 spec:
   interval: 5m
   chart:
@@ -185,24 +217,9 @@ spec:
   targetNamespace: kube-system
   kubeConfig:
     secretRef:
-      name: ai-tests-kubeconfig
+      name: $CLUSTER-kubeconfig
       key: value
 EOF
-```
-
-## 8. Kube Prometheus Stack
-
-**Purpose**: Provides comprehensive monitoring and alerting for Kubernetes clusters.
-
-**Installation via Giant Swarm App Platform**:
-```sh
-kubectl gs template app \
-  --catalog giantswarm \
-  --name kube-prometheus-stack \
-  --cluster-name ai-tests \
-  --target-namespace kube-system \
-  --version 18.1.0 \
-  --organization fer | kubectl apply -f -
 ```
 
 ## 9. Prometheus Adapter
@@ -210,39 +227,15 @@ kubectl gs template app \
 **Purpose**: Enables custom metrics for Horizontal Pod Autoscaler, including AI/ML specific metrics.
 
 **Installation via Flux HelmRelease**:
+
 ```sh
-kubectl apply -f - <<EOF
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
-  name: ai-tests-prometheus-adapter
-  namespace: org-fer
-spec:
-  interval: 5m
-  chart:
-    spec:
-      chart: oci://ghcr.io/prometheus-community/charts/prometheus-adapter
-  targetNamespace: kube-system
-  kubeConfig:
-    secretRef:
-      name: ai-tests-kubeconfig
-      key: value
-  values:
-    prometheus:
-      url: http://kube-prometheus-stack-prometheus.kube-system.svc
-    rules:
-      default: true
-      custom:
-        - seriesQuery: 'vllm:num_requests_running'
-          resources:
-            overrides:
-              namespace: {resource: "namespace"}
-              pod: {resource: "pod"}
-          name:
-            matches: "vllm:num_requests_running"
-            as: "vllm_num_requests_running"
-          metricsQuery: sum(vllm:num_requests_running{<<.LabelMatchers>>}) by (<<.GroupBy>>)
-EOF
+kubectl gs template app \
+  --catalog=giantswarm \
+  --cluster-name=$CLUSTER \
+  --org $ORGANIZATION \
+  --name=keda \
+  --target-namespace=keda-system \
+  --version=3.1.0 | kubectl apply -f -
 ```
 
 ## 10. Sonobuoy Configuration
