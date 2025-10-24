@@ -93,4 +93,4 @@ spec:
       status: "Implemented"
       evidence:
         - "https://docs.giantswarm.io/tutorials/fleet-management/job-management/kuberay"
-      notes: "TBD"
+      notes: ""
