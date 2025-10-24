@@ -18,10 +18,10 @@ spec:
       state: TBD
       description: "Support Dynamic Resource Allocation (DRA) APIs to enable more flexible and fine-grained resource requests beyond simple counts."
       level: SHOULD
-      status: "N/A"
+      status: "Implemented"
       evidence:
-        - ""
-      notes: "DRA APIs are disabled in 1.33 by default"
+        - "https://docs.giantswarm.io/tutorials/fleet-management/cluster-management/dynamic-resource-allocation/"
+      notes: ""
   networking:
     - id: ai_inference
       state: TBD
