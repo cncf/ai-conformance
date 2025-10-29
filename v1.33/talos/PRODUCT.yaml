@@ -1,0 +1,84 @@
+# Kubernetes AI Conformance Checklist
+# Notes: This checklist is based on the Kubernetes AI Conformance document.
+# Participants should fill in the 'status', 'evidence', and 'notes' fields for each requirement.
+
+metadata:
+  kubernetesVersion: v1.33
+  platformName: "Talos Linux"
+  platformVersion: "1.11.3"
+  vendorName: "Sidero Labs"
+  websiteUrl: "https://talos.dev"
+  repoUrl: "https://github.com/siderolabs/talos"
+  documentationUrl: "https://docs.siderolabs.com/talos/latest/overview/what-is-talos"
+  productLogoUrl: "https://talos.dev/img/talos/talos-hz-color-black.svg"
+  description: "Talos Linux is a single purpose Linux distribution for running Kubernetes with API management and secure by default configuration."
+
+spec:
+  accelerators:
+    - id: dra_support
+      description: "Support Dynamic Resource Allocation (DRA) APIs to enable more flexible and fine-grained resource requests beyond simple counts."
+      level: MUST
+      status: "Implemented"
+      evidence:
+        - "https://docs.siderolabs.com/kubernetes-guides/advanced-guides/dynamic-resource-allocation"
+      notes: "DRA is supported in Talos Linux and Omni with Kubernetes v1.33 and above and Talos Linux v1.9 and above."
+  networking:
+    - id: ai_inference
+      description: "Support the Kubernetes Gateway API with an implementation for advanced traffic management for inference services, which enables capabilities like weighted traffic splitting, header-based routing (for OpenAI protocol headers), and optional integration with service meshes."
+      level: MUST
+      status: "Implemented"
+      evidence:
+        - "https://docs.siderolabs.com/kubernetes-guides/advanced-guides/deploy-traefik"
+        - "https://docs.siderolabs.com/kubernetes-guides/cni/deploying-cilium#without-kube-proxy"
+      notes: "Kubernetes running on Talos Linux and Omni support a variety of Gateway API controllers depending on where you run clusters. For on-prem clusters solutions such as Traefik and Cilium are compatible."
+  schedulingOrchestration:
+    - id: gang_scheduling
+      description: "The platform must allow for the installation and successful operation of at least one gang scheduling solution that ensures all-or-nothing scheduling for distributed AI workloads (e.g. Kueue, Volcano, etc.) To be conformant, the vendor must demonstrate that their platform can successfully run at least one such solution."
+      level: MUST
+      status: "Implemented"
+      evidence:
+        - "https://docs.siderolabs.com/kubernetes-guides/advanced-guides/kueue"
+      notes: "Talos Linux supports gang scheduling that can be deployed on conformant Kubernetes clusters."
+    - id: cluster_autoscaling
+      description: "If the platform provides a cluster autoscaler or an equivalent mechanism, it must be able to scale up/down node groups containing specific accelerator types based on pending pods requesting those accelerators."
+      level: MUST
+      status: "N/A"
+      evidence: "N/A"
+      notes: "Talos Linux works with customer provided machines. In a cloud or virtualized environment autoscalers such as the Kubernetes cluster autoscaler can be used, but it is not required and does not work for edge or on-premesis infrastructure."
+    - id: pod_autoscaling
+      description: "If the platform supports the HorizontalPodAutoscaler, it must function correctly for pods utilizing accelerators. This includes the ability to scale these Pods based on custom metrics relevant to AI/ML workloads."
+      level: MUST
+      status: "Implemented"
+      evidence:
+        - "https://docs.siderolabs.com/kubernetes-guides/advanced-guides/hpa"
+      notes: "Talos Linux supports pod autoscalers including vanilla HPA. HPA can be configured to scale based on custom metrics, such as those exposed by NVIDIA DCGM exporter or Neuron Monitor."
+  observability:
+    - id: accelerator_metrics
+      description: "For supported accelerator types, the platform must allow for the installation and successful operation of at least one accelerator metrics solution that exposes fine-grained performance metrics via a standardized, machine-readable metrics endpoint. This must include a core set of metrics for per-accelerator utilization and memory usage. Additionally, other relevant metrics such as temperature, power draw, and interconnect bandwidth should be exposed if the underlying hardware or virtualization layer makes them available. The list of metrics should align with emerging standards, such as OpenTelemetry metrics, to ensure interoperability. The platform may provide a managed solution, but this is not required for conformance."
+      level: MUST
+      status: "N/A"
+      evidence: "N/A"
+      notes: "Kubernetes cluster managed by Talos linux and Omni support deploying DCGM (NVIDIA), but they do not provide integrated workload deployment, monitoring, or observability."
+    - id: ai_service_metrics
+      description: "Provide a monitoring system capable of discovering and collecting metrics from workloads that expose them in a standard format (e.g. Prometheus exposition format). This ensures easy integration for collecting key metrics from common AI frameworks and servers."
+      level: MUST
+      status: "N/A"
+      evidence: "N/A"
+      notes: "Talos Linux allows for a variety of monitoring tools to be installed in the clusters, but it does not have access to Kubernetes workloads and does not scrape metrics directly."
+  security:
+    - id: secure_accelerator_access
+      description: "Ensure that access to accelerators from within containers is properly isolated and mediated by the Kubernetes resource management framework (device plugin or DRA) and container runtime, preventing unauthorized access or interference between workloads."
+      level: MUST
+      status: "Implemented"
+      evidence:
+        - "see secure_accelerator_access.md"
+      notes: ""
+  operator:
+    - id: robust_controller
+      description: "The platform must prove that at least one complex AI operator with a CRD (e.g., Ray, Kubeflow) can be installed and functions reliably. This includes verifying that the operator's pods run correctly, its webhooks are operational, and its custom resources can be reconciled."
+      level: MUST
+      status: "Implemented"
+      evidence:
+        - "https://docs.siderolabs.com/kubernetes-guides/advanced-guides/kuberay"
+        - "https://github.com/cncf/k8s-conformance/pull/3718"
+      notes: "Talos Linux uses a vanilla, conformant Kubernetes cluster. Frameworks such as Ray and Kubeflow have been tested and are used on clusters implemented on Talos Linux and Omni."
