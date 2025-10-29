@@ -1,0 +1,86 @@
+# Kubernetes AI Conformance Checklist
+# Notes: This checklist is based on the Kubernetes AI Conformance document.
+# Participants should fill in the 'status', 'evidence', and 'notes' fields for each requirement.
+
+metadata:
+  kubernetesVersion: v1.34
+  platformName: vSphere Kubernetes Service
+  platformVersion: v3.5.0
+  vendorName: Broadcom
+  websiteUrl: "https://vmware.com/vks"
+  documentationUrl: "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vsphere-supervisor-services-and-standalone-components/latest/managing-vsphere-kubernetes-service.html"
+  productLogoUrl: "https://raw.githubusercontent.com/vsphere-tmm/Supervisor-Services/refs/heads/main/vks-ai-conformance/v1.34/VKS%20Logo%20Vertical.png"
+  description: "vSphere Kubernetes Service (VKS) is a CNCF certified Kubernetes runtime integrated into VMware Cloud Foundation. It provides consistent Kubernetes cluster lifecycle management, security, networking, and multi-cluster operations for running containerized applications, including modern data intensive and AI/ML workloads, across private cloud environments."
+  contactEmailAddress: cncf.pdl@broadcom.com
+
+spec:
+  accelerators:
+    - id: dra_support
+      description: "Support Dynamic Resource Allocation (DRA) APIs to enable more flexible and fine-grained resource requests beyond simple counts."
+      level: MUST
+      status: "Implemented"
+      evidence:
+        - "https://github.com/vsphere-tmm/Supervisor-Services/blob/main/vks-ai-conformance/v1.34/dra_support.md"
+      notes: ""
+  networking:
+    - id: ai_inference
+      description: "Support the Kubernetes Gateway API with an implementation for advanced traffic management for inference services, which enables capabilities like weighted traffic splitting, header-based routing (for OpenAI protocol headers), and optional integration with service meshes."
+      level: MUST
+      status: "Implemented"
+      evidence:
+        - "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vsphere-supervisor-services-and-standalone-components/latest/managing-vsphere-kuberenetes-service-clusters-and-workloads/installing-standard-packages-on-tkg-service-clusters/standard-package-reference/istio-package-reference.html"
+        - "https://blogs.vmware.com/cloud-foundation/2025/03/06/istio-on-vsphere-kubernetes-service-vks-a-walkthrough/"
+      notes: ""
+  schedulingOrchestration:
+    - id: gang_scheduling
+      description: "The platform must allow for the installation and successful operation of at least one gang scheduling solution that ensures all-or-nothing scheduling for distributed AI workloads (e.g. Kueue, Volcano, etc.) To be conformant, the vendor must demonstrate that their platform can successfully run at least one such solution."
+      level: MUST
+      status: "Implemented"
+      evidence:
+        - "https://github.com/vsphere-tmm/Supervisor-Services/blob/main/vks-ai-conformance/v1.34/gang_scheduling.md"
+      notes: ""
+    - id: cluster_autoscaling
+      description: "If the platform provides a cluster autoscaler or an equivalent mechanism, it must be able to scale up/down node groups containing specific accelerator types based on pending pods requesting those accelerators."
+      level: MUST
+      status: "Implemented"
+      evidence:
+        - "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vsphere-supervisor-services-and-standalone-components/latest/managing-vsphere-kuberenetes-service-clusters-and-workloads/autoscaling-tkg-service-clusters/about-cluster-autoscaling.html"
+      notes: ""
+    - id: pod_autoscaling
+      description: "If the platform supports the HorizontalPodAutoscaler, it must function correctly for pods utilizing accelerators. This includes the ability to scale these Pods based on custom metrics relevant to AI/ML workloads."
+      level: MUST
+      status: "Implemented"
+      evidence:
+        - "https://github.com/vsphere-tmm/Supervisor-Services/blob/main/vks-ai-conformance/v1.34/pod_autoscaling.md"
+      notes: ""
+  observability:
+    - id: accelerator_metrics
+      description: "For supported accelerator types, the platform must allow for the installation and successful operation of at least one accelerator metrics solution that exposes fine-grained performance metrics via a standardized, machine-readable metrics endpoint. This must include a core set of metrics for per-accelerator utilization and memory usage. Additionally, other relevant metrics such as temperature, power draw, and interconnect bandwidth should be exposed if the underlying hardware or virtualization layer makes them available. The list of metrics should align with emerging standards, such as OpenTelemetry metrics, to ensure interoperability. The platform may provide a managed solution, but this is not required for conformance."
+      level: MUST
+      status: "Implemented"
+      evidence:
+        - "https://github.com/vsphere-tmm/Supervisor-Services/blob/main/vks-ai-conformance/v1.34/accelerator_metrics.md"
+      notes: ""
+    - id: ai_service_metrics
+      description: "Provide a monitoring system capable of discovering and collecting metrics from workloads that expose them in a standard format (e.g. Prometheus exposition format). This ensures easy integration for collecting key metrics from common AI frameworks and servers."
+      level: MUST
+      status: "Implemented"
+      evidence:
+        - "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vsphere-supervisor-services-and-standalone-components/latest/managing-vsphere-kuberenetes-service-clusters-and-workloads/installing-standard-packages-on-tkg-service-clusters/standard-package-reference/prometheus-package-reference.html"
+      notes: ""
+  security:
+    - id: secure_accelerator_access
+      description: "Ensure that access to accelerators from within containers is properly isolated and mediated by the Kubernetes resource management framework (device plugin or DRA) and container runtime, preventing unauthorized access or interference between workloads."
+      level: MUST
+      status: "Implemented"
+      evidence:
+        - "https://github.com/vsphere-tmm/Supervisor-Services/blob/main/vks-ai-conformance/v1.34/secure_accelerator_access.md"
+      notes: ""
+  operator:
+    - id: robust_controller
+      description: "The platform must prove that at least one complex AI operator with a CRD (e.g., Ray, Kubeflow) can be installed and functions reliably. This includes verifying that the operator's pods run correctly, its webhooks are operational, and its custom resources can be reconciled."
+      level: MUST
+      status: "Implemented"
+      evidence:
+        - "https://github.com/vsphere-tmm/Supervisor-Services/blob/main/vks-ai-conformance/v1.34/robust_controller.md"
+      notes: ""
