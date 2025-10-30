@@ -10,7 +10,7 @@ metadata:
   websiteUrl: "https://azure.microsoft.com/products/kubernetes-service/"
   repoUrl: "https://github.com/Azure/AKS"
   documentationUrl: "https://learn.microsoft.com/azure/aks/"
-  productLogoUrl: "https://raw.githubusercontent.com/Azure/AKS/refs/heads/master/website/static/img/logo.svg"
+  productLogoUrl: "https://raw.githubusercontent.com/cncf/landscape/master/hosted_logos/azure-kubernetes-service.svg"
   description: "Azure Kubernetes Service (AKS) is a managed Kubernetes service that you can use to deploy and manage containerized applications at scale."
   contactEmailAddress: "asabbour@microsoft.com"
 
@@ -90,6 +90,7 @@ spec:
         - "https://learn.microsoft.com/azure/aks/ai-toolchain-operator"
         - "https://learn.microsoft.com/azure/aks/ray-overview"
       notes: ""
+
 
 
 
