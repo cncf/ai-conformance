@@ -48,22 +48,22 @@ spec:
     - id: pod_autoscaling
       description: "If the platform supports the HorizontalPodAutoscaler, it must function correctly for pods utilizing accelerators. This includes the ability to scale these Pods based on custom metrics relevant to AI/ML workloads."
       level: MUST
-      status: ""
+      status: "Implemented"
       evidence: 
       - "https://intl.cloud.baidu.com/en/doc/CCE/s/amhddquwk"
-      notes: ""
+      notes: "Implemented"
   observability:
     - id: accelerator_metrics
       description: "For supported accelerator types, the platform must allow for the installation and successful operation of at least one accelerator metrics solution that exposes fine-grained performance metrics via a standardized, machine-readable metrics endpoint. This must include a core set of metrics for per-accelerator utilization and memory usage. Additionally, other relevant metrics such as temperature, power draw, and interconnect bandwidth should be exposed if the underlying hardware or virtualization layer makes them available. The list of metrics should align with emerging standards, such as OpenTelemetry metrics, to ensure interoperability. The platform may provide a managed solution, but this is not required for conformance."
       level: MUST
-      status: ""
+      status: "Implemented"
       evidence: 
       - "https://intl.cloud.baidu.com/en/doc/CCE/s/Ulps6uxwe-intl-en"
       notes: ""
     - id: ai_service_metrics
       description: "Provide a monitoring system capable of discovering and collecting metrics from workloads that expose them in a standard format (e.g. Prometheus exposition format). This ensures easy integration for collecting key metrics from common AI frameworks and servers."
       level: MUST
-      status: ""
+      status: "Implemented"
       evidence: 
       - "https://intl.cloud.baidu.com/en/doc/CCE/s/slps718vs-intl-en"
       notes: ""
@@ -71,7 +71,7 @@ spec:
     - id: secure_accelerator_access
       description: "Ensure that access to accelerators from within containers is properly isolated and mediated by the Kubernetes resource management framework (device plugin or DRA) and container runtime, preventing unauthorized access or interference between workloads."
       level: MUST
-      status: ""
+      status: "Implemented"
       evidence: 
       - "https://intl.cloud.baidu.com/en/doc/CCE/s/Lmhddquze"
       notes: ""
@@ -79,7 +79,7 @@ spec:
     - id: robust_controller
       description: "The platform must prove that at least one complex AI operator with a CRD (e.g., Ray, Kubeflow) can be installed and functions reliably. This includes verifying that the operator's pods run correctly, its webhooks are operational, and its custom resources can be reconciled."
       level: MUST
-      status: ""
+      status: "Implemented"
       evidence: 
       - "https://intl.cloud.baidu.com/en/doc/CCE/s/Jmhddqupe"
       notes: ""
