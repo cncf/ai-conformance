@@ -30,6 +30,8 @@ spec:
       status: "Implemented"
       evidence:
         - https://docs.kubermatic.com/kubermatic/v2.29/tutorials-howtos/kubelb/
+        - https://docs.kubermatic.com/kubelb/v1.2/tutorials/aigateway/
+        - https://docs.kubermatic.com/kubermatic/v2.29/tutorials-howtos/networking/ai-inference-routing/
       notes: ""
   schedulingOrchestration:
     - id: gang_scheduling
@@ -50,7 +52,8 @@ spec:
       description: "If the platform supports the HorizontalPodAutoscaler, it must function correctly for pods utilizing accelerators. This includes the ability to scale these Pods based on custom metrics relevant to AI/ML workloads."
       level: MUST
       status: "Implemented"
-      evidence: []
+      evidence:
+        - https://docs.kubermatic.com/kubermatic/v2.29/tutorials-howtos/hpa-with-custom-gpu-metrics/
       notes: ""
   observability:
     - id: accelerator_metrics
@@ -76,7 +79,8 @@ spec:
       description: "Ensure that access to accelerators from within containers is properly isolated and mediated by the Kubernetes resource management framework (device plugin or DRA) and container runtime, preventing unauthorized access or interference between workloads."
       level: MUST
       status: "Implemented"
-      evidence: []
+      evidence:
+        - secure-accelerator_access.md
       notes: ""
   operator:
     - id: robust_controller
