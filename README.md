@@ -12,6 +12,8 @@ https://docs.google.com/document/d/1hXoSdh9FEs13Yde8DivCYjjXyxa7j4J8erjZPEGWuzc/
 
 # Certified AI Platform Conformance Program
 
+![Kubernetes AI Conformance](https://github.com/cncf/artwork/blob/main/projects/kubernetes/certified-kubernetes-ai/versionless/color/CNCF_AI_Conformance_Logo-Color-V2.png)
+
 All vendors are invited to submit conformance testing results for review and certification by the CNCF.
 
 If your company provides a platform for Artificial Intelligence and Machine Learning based on CNCF Projects, we encourage you to get certified today.
