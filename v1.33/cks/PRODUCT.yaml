@@ -1,7 +1,7 @@
 metadata:
-  kubernetesVersion: v1.34
+  kubernetesVersion: v1.33
   platformName: CoreWeave Kubernetes Service (CKS)
-  platformVersion: v1beta1
+  platformVersion: v1.33
   vendorName: CoreWeave
   website_url: https://www.coreweave.com/products/coreweave-kubernetes-service
   repo_url: https://github.com/yoyo.dyne/turbo-encabulator
