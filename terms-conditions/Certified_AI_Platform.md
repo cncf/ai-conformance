@@ -20,7 +20,7 @@ By submitting one or more Applicant Platforms to be certified as a Conformant Pl
   
 * "**Conformance Checklist**" means any specific instance of the Conformance Checklist Template submitted by a Participant as a pull request to the Program Repository.
   
-* "**Conformance Checklist Template"** means the current version of the YAML file template available at [https://github.com/cncf/ai-conformance/tree/main/docs](https://github.com/cncf/ai-conformance/tree/main/docs), which defines the criteria that a Platform must meet in order to qualify as a Conformant Platform.
+* "**Conformance Checklist Template"** means the current version of the YAML file template available at [https://github.com/cncf/k8s-ai-conformance/tree/main/docs](https://github.com/cncf/k8s-ai-conformance/tree/main/docs), which defines the criteria that a Platform must meet in order to qualify as a Conformant Platform.
   
 * "**Conformant Platform**" means a specific version of Platform that has met all Program requirements and has been approved by CNCF.
   
@@ -35,9 +35,9 @@ By submitting one or more Applicant Platforms to be certified as a Conformant Pl
   
 * "**Program Materials**" means the Program Repository, and content and materials contained therein outlining the goals, scope, requirements, and process of the Conformance Program. The Program Materials include, without limitation, the Conformance Checklist Template, and Submission Instructions.
   
-* **"Program Repository"** means the repository for the Conformance Program available at [https://github.com/cncf/ai-conformance](https://github.com/cncf/ai-conformance).
+* **"Program Repository"** means the repository for the Conformance Program available at [https://github.com/cncf/k8s-ai-conformance](https://github.com/cncf/k8s-ai-conformance).
   
-* "**Submission Instructions**" means the instructions for submitting a Platform for certification as a Conformant Platform, available at [https://github.com/cncf/ai-conformance/blob/main/instructions.md](https://github.com/cncf/ai-conformance/blob/main/instructions.md).
+* "**Submission Instructions**" means the instructions for submitting a Platform for certification as a Conformant Platform, available at [https://github.com/cncf/k8s-ai-conformance/blob/main/instructions.md](https://github.com/cncf/k8s-ai-conformance/blob/main/instructions.md).
   
 * "**Terms**" means these terms and conditions, together with all documents incorporated herein.
 
