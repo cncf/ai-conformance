@@ -7,7 +7,7 @@ The standard set of conformance requirements are defined in `docs/AiConformance-
 ## Uploading
 
 Prepare a PR to
-[https://github.com/cncf/ai-conformance](https://github.com/cncf/ai-conformance).
+[https://github.com/cncf/k8s-ai-conformance](https://github.com/cncf/k8s-ai-conformance).
 Here are [directions](https://help.github.com/en/articles/creating-a-pull-request-from-a-fork) to
 prepare a pull request from a fork.
 In the descriptions below, `X.Y` refers to the kubernetes major and minor
@@ -81,7 +81,7 @@ If you don't see a response within 10 business days, please contact conformance@
 
 If you have problems certifying that you feel are an issue with the conformance
 program itself (and not just your own implementation), you can file an issue in
-the [repository](https://github.com/cncf/ai-conformance). Questions and
+the [repository](https://github.com/cncf/k8s-ai-conformance). Questions and
 comments can also be sent to the working group's
 [mailing list and slack channel](README-WG.md).
 [WG AI Conformance](https://github.com/kubernetes/community/tree/master/wg-ai-conformance)
