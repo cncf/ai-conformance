@@ -1,6 +1,6 @@
 # Certified Kubernetes AI Platform Conformance Program Terms and Conditions
 
-Last updated: November 7, 2025
+Last updated: December 15, 2025
 
 This document sets forth the terms and conditions that apply to the Kubernetes AI Platform Conformance Program and the use of the associated Certified Kubernetes AI Platform Marks. 
 
