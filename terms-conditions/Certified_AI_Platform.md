@@ -105,13 +105,13 @@ Each Participant represents and warrants that it possesses all rights necessary 
 
 ## 8. Term and Termination
 
-**8.1 Term: **The term of a Participant’s participation in the Conformance Program shall begin the first time CNCF approves and merges a Conformance Checklist pull request submitted by the Participant. The term of the certification period for a particular Conformant Platform is described in Section 5.1. 
+**8.1 Term:** The term of a Participant’s participation in the Conformance Program shall begin the first time CNCF approves and merges a Conformance Checklist pull request submitted by the Participant. The term of the certification period for a particular Conformant Platform is described in Section 5.1. 
 
-**8.2 Termination: **Either Licensor or the Participant may terminate Participant’s participation in the Conformance Program upon written notice to the other. Additionally, Participant’s participation in the Conformance Program shall automatically terminate (unless otherwise agreed by Licensor in writing) (a) upon the Participant’s breach of these Terms, if such breach is not curable or, if curable, is not cured within 15 days thereafter; or (b) the expiration of the certification period for all of the Participant’s Conformant Platforms.
+**8.2 Termination:** Either Licensor or the Participant may terminate Participant’s participation in the Conformance Program upon written notice to the other. Additionally, Participant’s participation in the Conformance Program shall automatically terminate (unless otherwise agreed by Licensor in writing) (a) upon the Participant’s breach of these Terms, if such breach is not curable or, if curable, is not cured within 15 days thereafter; or (b) the expiration of the certification period for all of the Participant’s Conformant Platforms.
 
-**8.3 Effect of Termination: **Upon the termination of Participant’s participation in the Conformance Program, the licenses granted hereunder to use the Licensed Marks shall immediately terminate, and Participant must promptly cease using the Licensed Marks and remove them from Participant’s marketing materials and websites. 
+**8.3 Effect of Termination:** Upon the termination of Participant’s participation in the Conformance Program, the licenses granted hereunder to use the Licensed Marks shall immediately terminate, and Participant must promptly cease using the Licensed Marks and remove them from Participant’s marketing materials and websites. 
 
-**8.4 Survival: **The sections of this agreement entitled "Ownership", "License to Participant Marks," "Disclaimer of Warranties," "Limitation of Liability," "Indemnification" and "Miscellaneous" shall survive termination of Participant’s participation in the Conformance Program.
+**8.4 Survival:** The sections of this agreement entitled "Ownership", "License to Participant Marks," "Disclaimer of Warranties," "Limitation of Liability," "Indemnification" and "Miscellaneous" shall survive termination of Participant’s participation in the Conformance Program.
 
 ## 9. Disclaimer of Warranties
 
