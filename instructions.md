@@ -2,9 +2,9 @@
 
 ## The self assessment
 
-The standard set of conformance requirements are defined in `docs/AiConformance-x.yy.yaml` for each Kubernetes Version
+The set of conformance requirements for each Kubernetes version are defined in the `AiConformance-x.yy.yaml` in the [docs](https://github.com/cncf/k8s-ai-conformance/tree/main/docs) folder. 
 
-## Uploading
+## Submitting the self assessment 
 
 Prepare a PR to
 [https://github.com/cncf/k8s-ai-conformance](https://github.com/cncf/k8s-ai-conformance).
@@ -17,7 +17,7 @@ product.  Examples would be `gke` or `openshift`.
 
 ### Contents of the PR
 
-You need to submit the completed self assesment yaml for the relevant major/minor Version of Kubernetes
+You must submit the completed self assesment manifest file for the relevant major/minor version of Kubernetes. 
 
 ```
 vX.Y/$dir/PRODUCT.yaml: See below.
@@ -59,15 +59,15 @@ metadata:
 
 ### Requirements
 
-The Self conformance file needs to be submitted without any adjustments or changes in spec to the fields `id, description, level`.
+The self conformance file must be submitted without adjustments or changes in spec to the fields `id, description, level`.
 The fields `status, evidence, and notes` need to be filled if the `level` is `MUST`.
 
-To reach conformance all `MUST` spec fields need to be addressed. The evidence needs to be publicly reachable. 
+To reach conformance all `MUST` spec fields need to be addressed and the evidence needs to be publicly reachable. 
 
 
 ## Amendment for Private Review
 
-If you need a private review for an unreleased product, please email a zip file containing what you would otherwise submit
+If you require a private review for an unreleased product, please email a .zip file containing what you would otherwise submit
 as a pull request to conformance@cncf.io and the documentation for the evidence. We'll review and confirm that you are ready to be Certified AI Kubernetes Platform
 as soon as you open the pull request. We can then often arrange to accept your pull request soon after you make it, at which point you become Certified Kubernetes.
 
