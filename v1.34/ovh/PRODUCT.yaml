@@ -1,0 +1,86 @@
+# Kubernetes AI Conformance Checklist
+# Notes: This checklist is based on the Kubernetes AI Conformance document.
+# Participants should fill in the 'status', 'evidence', and 'notes' fields for each requirement.
+
+metadata:
+  kubernetesVersion: v1.34
+  platformName: OVHcloud Managed Kubernetes Service
+  platformVersion: 1.0
+  vendorName: OVHcloud
+  websiteUrl: https://www.ovhcloud.com/en-gb/public-cloud/kubernetes/
+  repoUrl: https://github.com/ovh/public-cloud-roadmap
+  documentationUrl: https://docs.ovh.com/gb/en/kubernetes/
+  productLogoUrl: https://www.ovh.com/fr/images/logo/ovhLogoColor.svg
+  description: Benefit from free HA managed Kubernetes service, by hosting your nodes and services on OVH Public Cloud
+  contactEmailAddress: platform_group@ml.ovh.net
+
+spec:
+  accelerators:
+    - id: dra_support
+      description: "Support Dynamic Resource Allocation (DRA) APIs to enable more flexible and fine-grained resource requests beyond simple counts."
+      level: MUST
+      status: "Implemented" # Implemented, Not Implemented, Partially Implemented, N/A
+      evidence:
+        - ./dra.yaml
+      notes: "DRA v1 APIs are enabled in 1.34 by default. The attached example demonstrates how the NVIDIA driver for DRA can be configured."
+  networking:
+    - id: ai_inference
+      description: "Support the Kubernetes Gateway API with an implementation for advanced traffic management for inference services, which enables capabilities like weighted traffic splitting, header-based routing (for OpenAI protocol headers), and optional integration with service meshes."
+      level: MUST
+      status: "Implemented"
+      evidence:
+        - "https://blog.ovhcloud.com/moving-beyond-ingress-why-should-ovhcloud-managed-kubernetes-service-mks-users-start-looking-at-the-gateway-api/"
+      notes: "OVHcloud Managed Kubernetes Services support all Gateway API controllers compatible with a vanilla kubernetes deployment."
+  schedulingOrchestration:
+    - id: gang_scheduling
+      description: "The platform must allow for the installation and successful operation of at least one gang scheduling solution that ensures all-or-nothing scheduling for distributed AI workloads (e.g. Kueue, Volcano, etc.) To be conformant, the vendor must demonstrate that their platform can successfully run at least one such solution."
+      level: MUST
+      status: "Implemented"
+      evidence:
+        - ./schedulingOrchestration.md#gang_scheduling
+      notes: "Custom schedulers supporting the gang scheduling algorithm can be deployed on OVHcloud Managed Kubernetes System."
+    - id: cluster_autoscaling
+      description: "If the platform provides a cluster autoscaler or an equivalent mechanism, it must be able to scale up/down node groups containing specific accelerator types based on pending pods requesting those accelerators."
+      level: MUST
+      status: "Implemented"
+      evidence:
+        - https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler/cloudprovider/ovhcloud
+      notes: "OVHcloud deploys an instance of the cluster autoscaler when autoscaling is enabled on at least one nodepool. This autoscaler supports pods requesting accelerators using the Dynamic Resource Allocation (DRA) APIs."
+    - id: pod_autoscaling
+      description: "If the platform supports the HorizontalPodAutoscaler, it must function correctly for pods utilizing accelerators. This includes the ability to scale these Pods based on custom metrics relevant to AI/ML workloads."
+      level: MUST
+      status: "Implemented"
+      evidence:
+        - ./schedulingOrchestration.md#pod_autoscaling
+      notes: "A prometheus deployment associated with the prometheus adapter can expose GPU metrics as custom metrics and be used by the HPA."
+  observability:
+    - id: accelerator_metrics
+      description: "For supported accelerator types, the platform must allow for the installation and successful operation of at least one accelerator metrics solution that exposes fine-grained performance metrics via a standardized, machine-readable metrics endpoint. This must include a core set of metrics for per-accelerator utilization and memory usage. Additionally, other relevant metrics such as temperature, power draw, and interconnect bandwidth should be exposed if the underlying hardware or virtualization layer makes them available. The list of metrics should align with emerging standards, such as OpenTelemetry metrics, to ensure interoperability. The platform may provide a managed solution, but this is not required for conformance."
+      level: MUST
+      status: "Implemented"
+      evidence:
+        - https://help.ovhcloud.com/csm/fr-public-cloud-kubernetes-monitoring-gpu-application?id=kb_article_view&sysparm_article=KB0055257
+      notes: "The NVIDIA Data Center GPU Manager (DCGM) can be installed on GPU nodes."
+    - id: ai_service_metrics
+      description: "Provide a monitoring system capable of discovering and collecting metrics from workloads that expose them in a standard format (e.g. Prometheus exposition format). This ensures easy integration for collecting key metrics from common AI frameworks and servers."
+      level: MUST
+      status: "Implemented"
+      evidence:
+        - https://help.ovhcloud.com/csm/fr-public-cloud-kubernetes-monitoring-gpu-application?id=kb_article_view&sysparm_article=KB0055257
+      notes: "Prometheus can be deployed on the OVHcloud Managed Kubernetes Service and collect metrics exposed by NVIDIA DCGM."
+  security:
+    - id: secure_accelerator_access
+      description: "Ensure that access to accelerators from within containers is properly isolated and mediated by the Kubernetes resource management framework (device plugin or DRA) and container runtime, preventing unauthorized access or interference between workloads."
+      level: MUST
+      status: "Implemented"
+      evidence:
+        - ./security.md#secure_accelerator_access
+      notes: "DRA v1 APIs are enabled in 1.34 by default."
+  operator:
+    - id: robust_controller
+      description: "The platform must prove that at least one complex AI operator with a CRD (e.g., Ray, Kubeflow) can be installed and functions reliably. This includes verifying that the operator's pods run correctly, its webhooks are operational, and its custom resources can be reconciled."
+      level: MUST
+      status: "Implemented"
+      evidence:
+        - ./operator.md
+      notes: "AI operators compatible with a vanilla Kubernetes installation + NVIDIA operators can be installed on OVHcloud Managed Kubernetes Service."
