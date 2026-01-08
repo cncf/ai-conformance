@@ -167,7 +167,7 @@ Pick the one that matches your Kubernetes version:
 The [WG AI Conformance](https://github.com/kubernetes/community/tree/master/wg-ai-conformance) working group governs this program and defines the conformance requirements.
 
 - **Meetings:** Check the community calendar in the working group repo
-- **Contact:** conformance@cncf.io
+- **Contact:** wg-ai-conformance@kubernetes.io
 
 ### Certified Platforms
 
