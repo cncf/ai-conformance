@@ -74,7 +74,7 @@ Most submissions are a completed checklist plus links to public evidence—think
 
 **Note:** Today, certification is based on self-assessment. Automated conformance tests are planned for 2026.
 
-For detailed instructions, see [instructions.md](instructions.md).
+For detailed instructions on what to include, see [instructions.md](instructions.md#contents-of-the-pr).
 
 ---
 
@@ -93,9 +93,9 @@ You don't need to be a vendor to help shape this standard. The program is being 
 
 #### How to get involved
 
-1. Join the [WG AI Conformance](https://github.com/kubernetes/community/tree/master/wg-ai-conformance) working group
-2. Check out the [planning document](https://docs.google.com/document/d/1hXoSdh9FEs13Yde8DivCYjjXyxa7j4J8erjZPEGWuzc/edit?tab=t.0#heading=h.9j85ih1tpsk) to see what we're working on
-3. Browse [open issues](https://github.com/cncf/k8s-ai-conformance/issues) or start a discussion
+1. [Open an issue](https://github.com/cncf/k8s-ai-conformance/issues) — have an idea, question, or suggestion? Start here
+2. Join the [WG AI Conformance](https://github.com/kubernetes/community/tree/master/wg-ai-conformance) working group
+3. Check out the [planning document](https://docs.google.com/document/d/1hXoSdh9FEs13Yde8DivCYjjXyxa7j4J8erjZPEGWuzc/edit?tab=t.0#heading=h.9j85ih1tpsk) to see what's in progress
 
 ---
 
@@ -121,18 +121,9 @@ flowchart TD
 
 ## Requirements Overview
 
-Platforms need to meet requirements across six areas:
+Platforms need to demonstrate capabilities across several areas: accelerators, networking, scheduling, observability, security, and operator support. The specifics evolve with each Kubernetes release.
 
-| Category | What's required | Priority |
-|----------|----------------|----------|
-| **Accelerators** | Dynamic Resource Allocation (DRA), GPU sharing, driver management | MUST/SHOULD |
-| **Networking** | Gateway API support for inference traffic routing | MUST |
-| **Scheduling** | Gang scheduling, cluster and pod autoscaling | MUST |
-| **Observability** | Metrics for accelerators and AI services | MUST |
-| **Security** | Isolated and secure accelerator access | MUST |
-| **Operators** | Support for complex AI operators like Ray or Kubeflow | MUST |
-
-For the complete list of requirements, see the conformance checklists in the [docs/](docs/) directory.
+For the full and up-to-date requirements, see the [conformance versions](https://github.com/kubernetes-sigs/wg-ai-conformance/tree/main/conformance-versions) in the WG repo.
 
 ---
 
