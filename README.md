@@ -62,7 +62,7 @@ Most submissions are a completed checklist plus links to public evidence—think
 
 1. **Prepare** - Review the [certification requirements](terms-conditions/Certified_AI_Platform.md) and make sure your platform meets them
 2. **Document** - Fill out the conformance checklist and gather evidence (documentation, test results, etc.)
-3. **Submit** - Create a pull request with your submission
+3. **Submit** - Create a pull request with your submission to the https://github.com/cncf/k8s-ai-conformance repo.
 4. **Review** - CNCF reviews your submission (typically takes up to 10 business days)
 
 #### What you'll need to submit
