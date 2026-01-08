@@ -93,7 +93,7 @@ You don't need to be a vendor to help shape this standard. The program is being 
 
 #### How to get involved
 
-1. [Open an issue](https://github.com/cncf/k8s-ai-conformance/issues) — have an idea, question, or suggestion? Start here
+1. [Open an issue](https://github.com/kubernetes-sigs/wg-ai-conformance/issues) — have an idea, question, or suggestion? Start here
 2. Join the [WG AI Conformance](https://github.com/kubernetes/community/tree/master/wg-ai-conformance) working group
 3. Check out the [planning document](https://docs.google.com/document/d/1hXoSdh9FEs13Yde8DivCYjjXyxa7j4J8erjZPEGWuzc/edit?tab=t.0#heading=h.9j85ih1tpsk) to see what's in progress
 
