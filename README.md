@@ -80,7 +80,7 @@ For detailed instructions on what to include, see [instructions.md](instructions
 
 ### For Contributors
 
-You don't need to be a vendor to help shape this standard. The program is being developed in the open by the Kubernetes community.
+The program is a community-led effort to establish a vendor-neutral baseline for AI portability. We welcome participation from all stakeholders, including end users, to ensure the standard remains independent and effective.
 
 #### Ways to contribute
 
