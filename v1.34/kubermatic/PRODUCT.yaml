@@ -80,7 +80,7 @@ spec:
       level: MUST
       status: "Implemented"
       evidence:
-        - secure-accelerator_access.md
+        - secure_accelerator_access.md
       notes: ""
   operator:
     - id: robust_controller

@@ -17,7 +17,7 @@ spec:
     - id: dra_support
       description: "Dynamic Resource Allocation (DRA) APIs enable more flexible and fine-grained resource requests beyond simple counts."
       level: SHOULD
-      status: ""
+      status: "Not Implemented"
       evidence:
         - ""
       notes: ""
