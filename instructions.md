@@ -77,6 +77,6 @@ A reviewer will comment on and/or accept your pull request, typically within 10 
 
 ## Issues
 
-If you have problems certifying that you feel are an issue with the conformance program itself (and not just your own implementation), you can file an issue in the [repository](https://github.com/cncf/k8s-ai-conformance).
+If you encounter issues with the conformance program itself during certification (rather than problems with your own implementation), you can file an issue in the [repository](https://github.com/cncf/k8s-ai-conformance).
 
 Questions and comments can also be sent to the [WG AI Conformance](https://github.com/kubernetes/community/tree/master/wg-ai-conformance) working group, which is the change controller of the conformance definition. You can also reach the community on [Slack](https://kubernetes.slack.com/archives/C09813W8DC2). 
