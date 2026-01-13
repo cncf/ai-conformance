@@ -15,7 +15,7 @@ The primary goals of the program are to:
 
 ### Will there be AI conformance tests?
 
-Not until 2026. For KubeCon NA 2025, each platform vendor will self-certify by filling out a questionnaire.
+Automated conformance tests are planned for 2026. Currently, certification is based on self-assessment using a conformance checklist.
 
 ### Why are some requirements conditional?
 
