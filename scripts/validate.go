@@ -36,6 +36,11 @@ var validStatuses = map[string]bool{
 	"N/A":                   true,
 }
 
+// k8sConformanceURLPattern matches URLs like:
+// https://github.com/cncf/k8s-conformance/tree/master/v1.34/gke
+// https://github.com/cncf/k8s-conformance/tree/main/v1.34/gke
+var k8sConformanceURLPattern = regexp.MustCompile(`^https://github\.com/cncf/k8s-conformance/tree/(master|main)/v\d+\.\d+/[^/]+/?$`)
+
 var metadataFields = map[string]bool{
 	"kubernetesVersion":   true,
 	"platformName":        true,
@@ -47,6 +52,7 @@ var metadataFields = map[string]bool{
 	"productLogoUrl":      true,
 	"description":         true,
 	"contactEmailAddress": true,
+	"k8sConformanceUrl":   true, // Required: URL to k8s-conformance submission
 }
 
 func main() {
@@ -142,6 +148,20 @@ func validateProduct(path string) bool {
 				}
 			} else if strings.HasPrefix(strVal, "[") && strings.HasSuffix(strVal, "]") {
 				addError(fmt.Sprintf("Metadata field %s has placeholder value: %s", field, strVal))
+			} else if field == "k8sConformanceUrl" || snakeField == "k8s_conformance_url" {
+				// Special validation for k8s-conformance URL
+				if !k8sConformanceURLPattern.MatchString(strVal) {
+					addError(fmt.Sprintf("Invalid k8sConformanceUrl format: %s. Expected format: https://github.com/cncf/k8s-conformance/tree/master/v{version}/{product}", strVal))
+				} else {
+					// Also validate that the URL is accessible
+					wg.Add(1)
+					go func(url, fName string) {
+						defer wg.Done()
+						if err := validateURL(url); err != nil {
+							addError(fmt.Sprintf("k8sConformanceUrl is not accessible: %s (%v)", url, err))
+						}
+					}(strVal, field)
+				}
 			} else if strings.HasPrefix(strVal, "http") {
 				wg.Add(1)
 				go func(url, fName string) {
