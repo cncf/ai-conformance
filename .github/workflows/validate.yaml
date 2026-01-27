@@ -1,0 +1,33 @@
+name: Validate AI Conformance
+
+on:
+  pull_request:
+    paths:
+      - '**/PRODUCT.yaml'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.23'
+          
+      - name: Install dependencies
+        run: go mod download
+        
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v41
+        with:
+          files: |
+            **/PRODUCT.yaml
+            
+      - name: Validate changed files
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          go run scripts/validate.go ${{ steps.changed-files.outputs.all_changed_files }}
