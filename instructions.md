@@ -39,6 +39,7 @@ This file describes your product. It is YAML formatted with the following root-l
 | `productLogoUrl`      | URL to the product's logo, (must be in SVG, AI or EPS format -- not a PNG -- and include the product name). OPTIONAL. If not supplied, we'll use your company logo. Please see logo [guidelines](https://github.com/cncf/landscape#logos) |
 | `description`           | One sentence description of your offering                                                                                                                                                                                               |
 | `contactEmailAddress` | An email address which can be used to contact maintainers regarding the product submitted and updates to the submission process                                                                                                         |
+| `k8sConformanceUrl`   | URL to your product's Kubernetes Conformance submission in [cncf/k8s-conformance](https://github.com/cncf/k8s-conformance). Format: `https://github.com/cncf/k8s-conformance/tree/master/vX.Y/product-name`                              |
 
 Examples below are for a fictional Kubernetes implementation called _Turbo
 Encabulator_ produced by a company named _Yoyodyne_.
@@ -55,6 +56,7 @@ metadata:
   product_logo_url: https://yoyo.dyne/assets/turbo-encabulator.svg
   description: "The Yoyodyne Turbo Encabulator is a superb Kubernetes distribution for all of your Encabulating needs."
   contact_email_address: yoyodyne@turbo-encabulator.org
+  k8s_conformance_url: https://github.com/cncf/k8s-conformance/tree/master/v1.34/turbo-encabulator
 ```
 
 ### Requirements
